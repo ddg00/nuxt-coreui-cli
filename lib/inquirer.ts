@@ -1,7 +1,7 @@
-import * as inquirer from "src/lib/inquirer";
+import * as inquirer from "inquirer";
 
 export const Inquirer = {
-  async askGeneratePage() {
+  askGeneratePage: async () => {
     const questions: inquirer.QuestionCollection = [
       {
         name: 'pageName',

@@ -1,5 +1,6 @@
 import {Command} from '@oclif/command'
-import {Inquirer} from '../../lib/inquirer'
+import {Inquirer} from '../../../lib/inquirer'
+import {Files} from '../../../lib/files'
 
 export default class Page extends Command {
   static description = 'generate page';
@@ -7,6 +8,8 @@ export default class Page extends Command {
   static examples = [
     '$ nuxt-coreui-cli page',
   ];
+
+  // static aliases = ['page:index', 'page:datatable'];
 
   // === example command ===============
   //
@@ -32,7 +35,15 @@ export default class Page extends Command {
   async run() {
     // const {args, flags} = this.parse(Page)
 
-    const data = await Inquirer.askGeneratePage();
-    this.log(`data: ${data.pageLocation}`);
+    const data = await Inquirer.askGeneratePage()
+    const path = data.pageLocation
+    const fullPath = `${path}\\${data.pageName}.vue`
+
+    try {
+      if (!Files.directoryExists(path)) Files.touchDir(path)
+      await Files.touchFile({filePath: fullPath})
+    } catch (error) {
+      this.error(error)
+    }
   }
 }

@@ -36,7 +36,7 @@
   },
   "files": [
     "/bin",
-    "/src/lib",
+    "/lib",
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
@@ -45,7 +45,7 @@
     "oclif"
   ],
   "license": "MIT",
-  "main": "src/lib/index.js",
+  "main": "lib/index.js",
   "oclif": {
     "commands": "./lib/commands",
     "bin": "nuxt-coreui-cli",
@@ -57,7 +57,7 @@
   "scripts": {
     "postpack": "rimraf oclif.manifest.json",
     "posttest": "eslint . --ext .ts --config .eslintrc",
-    "prepack": "rimraf src/lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "prepack": "rimraf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "oclif-dev readme && git add README.md"
   },
