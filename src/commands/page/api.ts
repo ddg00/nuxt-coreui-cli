@@ -61,8 +61,13 @@ export default class Page extends Command {
 
     const fields: string[] = []
     keys.forEach((item) => fields.push({name: item}))
-    const choosed = await Inquirer.selectKeys(fields)
+    const selected = await Inquirer.selectKeys(fields)
 
+    try {
+      await Files.findAndReplace(fullPath, selected.keys)
+    } catch (error) {
+      this.error(error)
+    }
 
     this.exit()
   }

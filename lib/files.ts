@@ -27,4 +27,15 @@ export const Files = {
       if (err) throw err
     })
   },
+
+  findAndReplace: async (filePath, replacement) => {
+    await fs.readFile(filePath, 'utf8', function (err,data) {
+      if (err) {
+        throw err
+      }
+      var result = data.replace(/<!-- Content -->/g, `${replacement}`)
+
+      fs.writeFileSync(filePath, result, 'utf8')
+    })
+  },
 }
