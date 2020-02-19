@@ -74,7 +74,7 @@ export const Inquirer = {
       default: false,
 
     })
-  }
+  },
 
   askURI: async () => {
     const question: inquirer.Question = {
@@ -92,5 +92,30 @@ export const Inquirer = {
 
     return inquirer.prompt(question);
   },
+
+  selectDataArray: async (choices) => {
+    return inquirer.prompt({
+      name: 'key',
+      type: 'list',
+      message: 'select data array:',
+      choices
+    })
+  },
+
+  selectKeys: async (fields) => {
+    return inquirer.prompt({
+      name: 'keys',
+      type: 'checkbox',
+      message: 'select keys:',
+      choices: fields,
+      validate: function(answer) {
+        if (answer.length < 1) {
+          return 'You must choose at least one key.';
+        }
+
+        return true;
+      }
+    })
+  }
 }
 
