@@ -75,5 +75,22 @@ export const Inquirer = {
 
     })
   }
+
+  askURI: async () => {
+    const question: inquirer.Question = {
+        name: 'uri',
+        type: 'input',
+        message: 'enter api URI:',
+        validate: function (value) {
+          if (value.length) {
+            return true
+          } else {
+            return 'Please enter URI.';
+          }
+        }
+      }
+
+    return inquirer.prompt(question);
+  },
 }
 
