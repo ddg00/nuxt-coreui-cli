@@ -11,14 +11,20 @@ export const Files = {
   },
 
   touchDir: (filePath: string) => {
-    console.log("=======",filePath);
     fs.mkdirSync(filePath)
+  },
+
+  deleteFile: (filePath: string) => {
+    fs.unlinkSync(filePath)
+  },
+
+  copyFile: (source:string, destination:string) => {
+    fs.copyFileSync(source,destination)
   },
 
   touchFile: ({filePath, data}: { filePath: any, data?: any }) => {
     fs.writeFile(filePath, data || '----', {flag: 'wx'}, function (err) {
       if (err) throw err
-      console.log('saved')
     })
   },
 }

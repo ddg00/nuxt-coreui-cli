@@ -36,14 +36,38 @@ export default class Page extends Command {
     // const {args, flags} = this.parse(Page)
 
     const data = await Inquirer.askGeneratePage()
-    const path = data.pageLocation
-    const fullPath = `${path}\\${data.pageName}.vue`
+    const dirPath = data.pageLocation
+    const fullPath = `${dirPath}\\${data.pageName}.vue`
+
+    if (Files.directoryExists(fullPath)) {
+      const {agree} = await Inquirer.askContinueWhenExist(fullPath)
+      if (!agree) this.exit()
+      Files.deleteFile(fullPath)
+    }
+
+    // Files.copyFile('',fullPath);
+
+    let addField = true
+    const fields: { [key: string]: string} = {}
+
+    while (addField) {
+      const newField = await Inquirer.askField();
+      fields[newField.fieldName] = newField.fieldType
+      addField = newField.addMore
+    }
+
+    let content = ''
+    for (const key in fields) {
+      if (fields[key]) {
+        content = `${content} ${key} : ${fields[key]} \n`
+      }
+    }
 
     try {
-      if (!Files.directoryExists(path)) Files.touchDir(path)
-      await Files.touchFile({filePath: fullPath})
+      if (!Files.directoryExists(dirPath)) Files.touchDir(dirPath)
+      await Files.touchFile({filePath: fullPath, data: content})
     } catch (error) {
-      this.error(error)
+      this.exit()
     }
   }
 }
