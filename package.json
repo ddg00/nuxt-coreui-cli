@@ -12,7 +12,7 @@
     "@oclif/plugin-help": "^2.2.3",
     "inquirer": "^7.0.4",
     "tslib": "^1.10.0",
-    "axios": "^0.19.2"
+    "axios": "^0.21.1"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.22.2",
